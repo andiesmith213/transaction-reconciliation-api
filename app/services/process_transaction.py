@@ -16,8 +16,8 @@ def add_tx(transaction, source):
 def get_tx(source):
     #Return appropriate list based off source
     if source == "internal":            
-        return pending.get_internal_list()
+        return {"status": "returned", "internal list": pending.get_internal_list()}
     elif source == "processed":         
-        return pending.get_processed_list()
+        return {"status": "returned", "processed list": pending.get_processed_list()}
     elif source == "all":              
-        return pending.get_internal_list(), pending.get_processed_list()
+        return {"status": "returned", "internal list": pending.get_internal_list(), "processed list": pending.get_processed_list()}

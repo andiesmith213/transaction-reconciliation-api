@@ -7,7 +7,7 @@ Future revisions will have separate routes for different functionalities.
 from fastapi                            import APIRouter, HTTPException
 from models.schemas                     import PendingTransaction
 from services.reconcile_transaction     import reconcile_tx
-from services.handle_transaction        import add_tx, get_tx
+from services.process_transaction       import add_tx, get_tx
 
 router = APIRouter()
 
@@ -32,3 +32,5 @@ def get_list(source: str):
 # def reconcile(tx_id: TransactionID):
 #     result = reconcile_tx(tx_id.tx_id)
 #     return result
+
+#TODO: add issues and matches endpoints once reconciliation portion is done
