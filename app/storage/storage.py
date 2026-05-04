@@ -16,26 +16,30 @@ class PendingStorage:
         self.internal_index = 0     #Tracks latest index value
 
     #Getter methods
-    def get_processed_transaction(self, tx_id):
-        if self.processed_index > 0:
-            self.processed_index -= 1
-        return self.processed_tx.pop(tx_id)
+    # def get_processed_transaction(self, tx_id):
+    #     if self.processed_index > 0:
+    #         self.processed_index -= 1
+    #     return self.processed_tx.pop(tx_id)
     
-    def get_internal_transaction(self, tx_id):
-        if self.internal_index > 0:
-            self.internal_index -= 1
-        return self.internal_tx.pop(tx_id)
+    # def get_internal_transaction(self, tx_id):
+    #     if self.internal_index > 0:
+    #         self.internal_index -= 1
+    #     return self.internal_tx.pop(tx_id)
+
+    def get_processed_list(self):
+        return self.processed_tx
+    
+    def get_internal_list(self):
+        return self.internal_tx
     
     #Setter methods
     def set_processed_transaction(self, transaction):
         self.processed_tx.append(transaction)
         self.processed_index = len(self.processed_tx) - 1
-        # return self.processed_tx
     
     def set_internal_transaction(self, transaction):
         self.internal_tx.append(transaction)
         self.internal_index = len(self.internal_tx) - 1
-        # return self.internal_tx
     
 
 class MatchedStorage:
