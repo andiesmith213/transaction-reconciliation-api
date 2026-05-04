@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 class PendingTransaction(BaseModel):
     tx_id: int
+    source: str
     amount: float
     timestamp: float
 

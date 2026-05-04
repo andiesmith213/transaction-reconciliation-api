@@ -12,22 +12,30 @@ class PendingStorage:
     def __init__(self):
         self.processed_tx = []      #List of dictionary entries containing tx id, amount, and timestamp
         self.internal_tx  = []      #List of dictionary entries containing tx id, amount, and timestamp
+        self.processed_index = 0    #Tracks latest index value
+        self.internal_index = 0     #Tracks latest index value
 
     #Getter methods
     def get_processed_transaction(self, tx_id):
+        if self.processed_index > 0:
+            self.processed_index -= 1
         return self.processed_tx.pop(tx_id)
     
     def get_internal_transaction(self, tx_id):
+        if self.internal_index > 0:
+            self.internal_index -= 1
         return self.internal_tx.pop(tx_id)
     
     #Setter methods
     def set_processed_transaction(self, transaction):
         self.processed_tx.append(transaction)
-        return "Transaction {transaction.tx_id} added to pending processed transactions"
+        self.processed_index = len(self.processed_tx) - 1
+        # return self.processed_tx
     
     def set_internal_transaction(self, transaction):
         self.internal_tx.append(transaction)
-        return "Transaction {transaction.tx_id} added to pending internal transactions"
+        self.internal_index = len(self.internal_tx) - 1
+        # return self.internal_tx
     
 
 class MatchedStorage:
