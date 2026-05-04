@@ -5,19 +5,19 @@ handle_transaction.py performs the following:
 '''
 from storage.storage import pending
 
-def add_tx(transaction):
+def add_tx(transaction, source):
     #Determine source of transaction and add to appropriate pending list
-    if transaction.source.lower() == "internal":            #.lower() to avoid mismatches due to case sensitivity
+    if source == "internal":           
         pending.set_internal_transaction(transaction)
-    elif transaction.source.lower() == "processed":         #.lower() to avoid mismatches due to case sensitivity
+    elif source == "processed":        
         pending.set_processed_transaction(transaction)    
-    return {"status": "added", "ID": transaction.tx_id, "source": transaction.source}
+    return {"status": "added", "ID": transaction.tx_id, "source": source}
     
 def get_tx(source):
     #Return appropriate list based off source
-    if source.lower() == "internal":            
+    if source == "internal":            
         return pending.get_internal_list()
-    elif source.lower() == "processed":         #.lower() to avoid mismatches due to case sensitivity
+    elif source == "processed":         
         return pending.get_processed_list()
-    elif source.lower() == "all":               #.lower() to avoid mismatches due to case sensitivity
+    elif source == "all":              
         return pending.get_internal_list(), pending.get_processed_list()
