@@ -4,8 +4,11 @@ handle_transaction.py performs the following:
 - returning list of pending transactions
 '''
 from storage.storage import pending
+import datetime as dt
 
 def add_tx(transaction, source):
+    #Grab timestamp to add to transaction
+    transaction.timestamp = dt.datetime.now().timestamp()
     #Determine source of transaction and add to appropriate pending list
     if source == "internal":           
         pending.set_internal_transaction(transaction)
