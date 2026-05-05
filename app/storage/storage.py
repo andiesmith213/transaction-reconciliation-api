@@ -49,6 +49,9 @@ class MatchedStorage:
     #Setter methods
     def set_transaction(self, transaction):
         self.tx[transaction.tx_id] = transaction
+        
+    def log_issue(self, id, log):
+        self.tx[id].issues.append(log)
     
     #Getter methods
     # def get_transaction(self, id):

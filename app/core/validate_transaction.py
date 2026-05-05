@@ -17,4 +17,6 @@ def validate_timestamp(id, tolerance):
     if in_tolerance is True:
         return {"status": "timestamp good"}
     else:
-        return {"status": "timestamp OOT", "details": "Tolerance exceeded by {} seconds".format((tolerance_seconds - delta_ts))}
+        issue_logging = {"status": "timestamp OOT", "details": "Tolerance exceeded by {} seconds".format((tolerance_seconds - delta_ts))}
+        matched.log_issue(id, issue_logging)
+        return issue_logging
