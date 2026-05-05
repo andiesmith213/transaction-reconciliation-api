@@ -26,8 +26,10 @@ def match_events(id):
 
 def build_matched_transaction(id, internal, processed):
     full_transaction = MatchedTransaction(tx_id = id,
-                                          internal = TransactionEvent(amount = internal.amount, timestamp = internal.timestamp),
-                                          processed = TransactionEvent(amount = processed.amount, timestamp = processed.timestamp),
+                                          internal = TransactionEvent(amount = internal.amount, 
+                                                                      timestamp = internal.timestamp),
+                                          processed = TransactionEvent(amount = processed.amount, 
+                                                                       timestamp = processed.timestamp),
                                           validated = False,
                                           issues = [])
     return full_transaction
