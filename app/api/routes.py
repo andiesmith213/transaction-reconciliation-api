@@ -27,10 +27,11 @@ def get_list(source: str):
         raise HTTPException(status_code=404, detail="Unknown transaction source. No list to return.")
     return get_tx(src)
 
-# #Endpoint to handle reconciling the transaction
-# @router.post("/reconcile")
-# def reconcile(tx_id: TransactionID):
-#     result = reconcile_tx(tx_id.tx_id)
-#     return result
+#Endpoint to handle reconciling the transaction
+@router.post("/reconcile/{tx_id}")
+def reconcile(tx_id: int):
+    return reconcile_tx(tx_id)
 
 #TODO: add issues and matches endpoints once reconciliation portion is done
+#TODO: is there a way to add in a check that occurs before the app is shut down?
+    #If so, add check of pending transaction indexes to confirm no transactions were missed

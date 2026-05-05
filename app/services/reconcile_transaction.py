@@ -1,0 +1,12 @@
+'''
+reconcile_transaction.py contains functions to both match and validate
+transactions that it recieves from the router. It will return a message
+providing the router with details on the transaction and any issues found.
+'''
+from core.match_transaction     import match_events
+
+#Wrapper function that will call match and validate functions.
+#Handles higher level passing of information
+def reconcile_tx(tx_id):
+    #Match processed and internal transactions
+    return match_events(tx_id)

@@ -10,7 +10,13 @@ class PendingTransaction(BaseModel):
     amount: float
     timestamp: float
 
+class TransactionEvent(BaseModel):
+    amount: float
+    timestamp: float
+
 class MatchedTransaction(BaseModel):
     tx_id: int
+    internal:  TransactionEvent
+    processed: TransactionEvent
     validated: bool
-    issues: dict
+    issues: list[str]
