@@ -46,11 +46,22 @@ class MatchedStorage:
     def __init__(self):
         self.tx = {}              #Dictionary entries that will include tx id, amounts, timestamps, validated flag and issue logging
 
+    #Setter methods
     def set_transaction(self, transaction):
         self.tx[transaction.tx_id] = transaction
     
-    def get_transaction(self, id):
-        return self.tx[id]
+    #Getter methods
+    # def get_transaction(self, id):
+    #     return self.tx[id]
+
+    def get_timestamps(self, tx_id):
+        return self.get_internal_timestamp(tx_id), self.get_processed_timestamp(tx_id)
+
+    def get_processed_timestamp(self, tx_id):
+        return self.tx[tx_id].processed.timestamp
+    
+    def get_internal_timestamp(self, tx_id):
+        return self.tx[tx_id].internal.timestamp
 
 pending = PendingStorage()
 matched = MatchedStorage()
