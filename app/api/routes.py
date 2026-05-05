@@ -31,8 +31,8 @@ def get_list(source: str):
 
 #Endpoint to handle reconciling (matching + validating) the transaction
 @router.post("/reconcile/{tx_id}")
-def reconcile(tx_id: int):
-    return reconcile_tx(tx_id)
+def reconcile(tx_id: int, time_tolerance: int = 10):      #Default of 10 minute tolerance between timestamps
+    return reconcile_tx(tx_id, time_tolerance)
 
 #Endpoint to allow for matching events
 @router.post("/match/{tx_id}")
