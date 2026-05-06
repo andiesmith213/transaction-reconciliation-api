@@ -9,25 +9,23 @@ from app.models.schemas                 import PendingTransaction
 from app.services.reconcile_transaction import reconcile_tx
 from app.core.match_transaction         import match_events
 from app.core.validate_transaction      import validate_timestamp
-from app.services.process_transaction   import add_tx, get_tx
+from app.services.process_transaction   import add_tx, get_tx_list
 
 router = APIRouter()
 
 #Endpoint to handle adding a new transaction
 @router.put("/add/{source}")
 def add(tx: PendingTransaction, source: str):
-    src = source.lower()                                    #.lower() to avoid mismatches due to case sensitivity
-    if src not in ["processed", "internal"]:                  
+    if source not in ["processed", "internal"]:                  
         raise HTTPException(status_code=404, detail="Unknown transaction source. No transaction to add.")
-    return add_tx(tx, src)
+    return add_tx(tx, source)
 
 #Endpoint to handle returning pending list
 @router.get("/get_list/{source}")
 def get_list(source: str):
-    src = source.lower()                                    #.lower() to avoid mismatches due to case sensitivity
-    if src not in ["processed", "internal", "all"]:
+    if source not in ["processed", "internal", "all"]:
         raise HTTPException(status_code=404, detail="Unknown transaction source. No list to return.")
-    return get_tx(src)
+    return get_tx_list(source)
 
 #Endpoint to handle reconciling (matching + validating) the transaction
 @router.post("/reconcile/{tx_id}")
