@@ -18,4 +18,4 @@ class MatchedTransaction(BaseModel):
     internal:  TransactionEvent
     processed: TransactionEvent
     validated: bool
-    issues: list[str]
+    issues: list[dict]
