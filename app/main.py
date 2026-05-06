@@ -6,7 +6,7 @@ Main API entrypoint. Contains the full application, including:
 '''
 
 from fastapi import FastAPI
-from api.routes import router
+from app.api.routes import router
 
 app = FastAPI()
 app.include_router(router)

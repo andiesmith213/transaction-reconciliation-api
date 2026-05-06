@@ -2,7 +2,7 @@
 validate_transaction.py will compare timestamp and transaction amount against a 
 defined tolerance and will log errors in matched list
 '''
-from storage.storage import matched
+from app.storage.storage import matched
 
 def convert_to_seconds(minutes):
     return 60 * minutes

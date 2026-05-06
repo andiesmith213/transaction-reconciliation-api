@@ -5,11 +5,11 @@ Future revisions will have separate routes for different functionalities.
 '''
 
 from fastapi                            import APIRouter, HTTPException
-from models.schemas                     import PendingTransaction
-from services.reconcile_transaction     import reconcile_tx
-from core.match_transaction             import match_events
-from core.validate_transaction          import validate_timestamp
-from services.process_transaction       import add_tx, get_tx
+from app.models.schemas                 import PendingTransaction
+from app.services.reconcile_transaction import reconcile_tx
+from app.core.match_transaction         import match_events
+from app.core.validate_transaction      import validate_timestamp
+from app.services.process_transaction   import add_tx, get_tx
 
 router = APIRouter()
 
