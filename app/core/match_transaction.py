@@ -3,8 +3,8 @@ match_transaction.py will compare the processed and internal
 transaction lists and, upon finding a match, will remove transactions
 from pending queue and store them into matched list
 '''
-from storage.storage            import pending, matched
-from models.schemas             import MatchedTransaction, TransactionEvent
+from app.storage.storage    import pending, matched
+from app.models.schemas     import MatchedTransaction, TransactionEvent
 
 def match_events(id):
     processed_event = pending.get_processed_transaction(id)
@@ -26,10 +26,10 @@ def match_events(id):
 
 def build_matched_transaction(id, internal, processed):
     full_transaction = MatchedTransaction(tx_id = id,
-                                          internal = TransactionEvent(amount = internal.amount, 
-                                                                      timestamp = internal.timestamp),
-                                          processed = TransactionEvent(amount = processed.amount, 
-                                                                       timestamp = processed.timestamp),
+                                          internal = TransactionEvent(amount = internal.event.amount, 
+                                                                      timestamp = internal.event.timestamp),
+                                          processed = TransactionEvent(amount = processed.event.amount, 
+                                                                       timestamp = processed.event.timestamp),
                                           validated = False,
                                           issues = [])
     return full_transaction
