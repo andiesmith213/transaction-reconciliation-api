@@ -54,8 +54,8 @@ class MatchedStorage:
         self.tx[id].issues.append(log)
     
     #Getter methods
-    # def get_transaction(self, id):
-    #     return self.tx[id]
+    def get_issue_log(self, id):
+        return self.tx[id].issues
 
     def get_timestamps(self, tx_id):
         return self.get_internal_timestamp(tx_id), self.get_processed_timestamp(tx_id)
@@ -65,6 +65,15 @@ class MatchedStorage:
     
     def get_internal_timestamp(self, tx_id):
         return self.tx[tx_id].internal.timestamp
+    
+    def get_amounts(self, tx_id):
+        return self.get_internal_amount(tx_id), self.get_processed_amount(tx_id)
+
+    def get_processed_amount(self, tx_id):
+        return self.tx[tx_id].processed.amount
+    
+    def get_internal_amount(self, tx_id):
+        return self.tx[tx_id].internal.amount
 
 pending = PendingStorage()
 matched = MatchedStorage()
