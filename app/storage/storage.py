@@ -52,6 +52,12 @@ class MatchedStorage:
         
     def log_issue(self, id, log):
         self.tx[id].issues.append(log)
+        
+    def set_validated_true(self, id):
+        self.tx[id].validated = True
+        
+    def set_validated_false(self, id, log):
+        self.tx[id].issues.append(log)
     
     #Getter methods
     def get_issue_log(self, id):
