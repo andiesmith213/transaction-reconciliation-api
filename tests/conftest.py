@@ -4,6 +4,19 @@ Pytest factory to build pseudo transactions for testing purposes
 import pytest
 from app.models.schemas             import TransactionEvent, MatchedTransaction, PendingTransaction
 
+from app.storage.storage import pending, matched
+
+#Auto clear memory between tests
+@pytest.fixture(autouse=True)
+def clear_storage():
+    """
+    Runs before every test.
+    Prevents shared state contamination.
+    """
+
+    pending.internal_tx.clear()
+    pending.processed_tx.clear()
+    matched.tx.clear()
 
 @pytest.fixture
 def event_factory():
