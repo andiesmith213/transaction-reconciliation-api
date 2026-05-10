@@ -18,11 +18,13 @@ If you clone this project into a folder named something other than transaction_r
 ## Using Docker Container
 Build docker image
 > docker build -t [transaction_reconciliation_api] .
+
 Run with docker
 > docker run -p 8000:8000 [transaction_reconciliation_api]
 ## Manually
 Install dependencies
 > pip install -r requirements.txt
+
 Run app from root
 > uvicorn app.main:app
 
