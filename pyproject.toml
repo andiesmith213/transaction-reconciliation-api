@@ -1,0 +1,17 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = """
+--cov=app
+--cov-report=term-missing
+--cov-report=html
+--cov-fail-under=90
+"""
+
+[tool.coverage.run]
+source = ["app"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.html]
+directory = "reports/coverage"
