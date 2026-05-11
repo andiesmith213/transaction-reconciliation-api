@@ -14,7 +14,7 @@ Currently available requests:
 
 # Running the app
 This app is designed to run from the root directory that contains the app and tests folder.
-If you clone this project into a folder named something other than transaction_reconciliation_api, change commands that say [transaction_reconciliation_api] with your project name.
+If you clone this project into a folder named something other than transaction_reconciliation_api, change where you see [transaction_reconciliation_api] with your project name.
 ## Using Docker Container
 Build docker image
 > docker build -t [transaction_reconciliation_api] .
@@ -29,5 +29,5 @@ Run app from root
 > uvicorn app.main:app
 
 # Testing
-from transaction_reconciliation_api:
+From root directory:
 > pytest --cov --cov-report=html
