@@ -7,10 +7,8 @@ Future revisions will have separate routes for different functionalities.
 from fastapi                            import APIRouter, HTTPException
 from app.models.schemas                 import PendingTransaction
 from app.services.reconcile_transaction import reconcile_tx
-from app.core.match_transaction         import match_events
-from app.core.validate_transaction      import validate_timestamp, validate_amount
-from app.services.process_transaction   import add_tx, get_tx_list
-from app.services.service_transaction   import get_issue_log, delete_pending_tx
+from app.services.process_transaction   import add_tx, get_tx_list, delete_pending_tx
+from app.services.transaction_reports   import get_issue_log
 
 router = APIRouter()
 
@@ -33,27 +31,12 @@ def get_list(source: str):
 def reconcile(tx_id: int, time_tolerance: float = 10, amount_tolerance: float = 0.5):      #Default of 10 minute tolerance between timestamps
     return reconcile_tx(tx_id, time_tolerance, amount_tolerance)
 
-#Endpoint to allow for matching events
-@router.post("/match/{tx_id}")
-def match(tx_id: int):
-    return match_events(tx_id)
-
-#Endpoint to allow for validating timestamps
-@router.get("/validate/time/{tx_id}")
-def time(tx_id: int, tolerance: float = 10):      #Default of 10 minute tolerance between timestamps
-    return validate_timestamp(tx_id, tolerance)
-
-#Endpoint to allow for validating amount
-@router.get("/validate/amount/{tx_id}")
-def amount(tx_id: int, tolerance: float = 0.5):      #Default of 50 cent tolerance between amounts
-    return validate_amount(tx_id, tolerance)
-
 #Endpoint to allow for retrieving issue log
 @router.get("/log/issues/{tx_id}")
 def issue_log(tx_id: int):
     return get_issue_log(tx_id)
 
-#Endpoint to allow for retrieving issue log
+#Endpoint to allow for deleting a pending transaction
 @router.delete("/delete/{source}/{tx_id}")
 def delete_pending(source: str, tx_id: int):
     if source not in ["processed", "internal", "all"]:
