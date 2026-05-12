@@ -6,9 +6,6 @@ Currently available requests:
 - Add new pending transaction 
 - Return list of all pending transactions
 - Reconcile transaction based off ID
-- Match a pending and internal transaction based off provided ID
-- Validate timestamp based off ID
-- Validate amount based off ID
 - Retrieve a log of issues based off ID
 - Delete existing pending transaction
 
@@ -27,6 +24,11 @@ Install dependencies
 
 Run app from root
 > uvicorn app.main:app
+
+# System Diagram
+<img width="1309" height="741" alt="image" src="https://github.com/user-attachments/assets/d212688d-2610-4b5b-b5a9-fe836e80b6be" />
+
+
 
 # Testing
 From root directory:
