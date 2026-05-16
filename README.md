@@ -13,10 +13,7 @@ the timestamps and amounts against a user provided tolerance, and will return an
 <img width="1329" height="633" alt="image" src="https://github.com/user-attachments/assets/c3ea79a4-05cf-4750-a92e-55dfe8f94138" />
 
 ### Report service
-<img width="952" height="369" alt="image" src="https://github.com/user-attachments/assets/b6d51d78-a385-4bc1-9b2a-793f78e8ecd1" />
-
-
-
+<img width="927" height="373" alt="image" src="https://github.com/user-attachments/assets/10317607-076d-43b9-ba7b-d5d8ee7fb139" />
 
 ## Available requests
 > Add new pending transaction 
