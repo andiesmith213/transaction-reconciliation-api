@@ -1,6 +1,10 @@
 
 
-from app.services.process_transaction import add_tx, get_tx, delete_pending_tx
+from app.services.process_transaction import add_tx, get_tx,  get_tx_list, delete_pending_tx
+
+#******************************
+#   Test setting transactions
+#******************************
 
 def set_tx(src, pending_tx, pending_storage):
     if src == "all":
@@ -10,6 +14,10 @@ def set_tx(src, pending_tx, pending_storage):
         pending_storage.set_internal_transaction(pending_tx)
     elif src == "processed":
         pending_storage.set_processed_transaction(pending_tx)
+
+#******************************
+#   Test deleting transactions
+#******************************
 
 def test_valid_delete(pending_tx_factory, pending_storage):
     pending_tx = pending_tx_factory(tx_id = 119089)  
@@ -53,6 +61,10 @@ def test_invalid_delete(pending_tx_factory, pending_storage):
     assert pending_storage.get_processed_transaction(pending_tx.tx_id) == pending_tx
 
 
+#******************************
+#   Test adding transactions
+#******************************
+
 def test_valid_add_to_pending(pending_tx_factory):
     tx1 = pending_tx_factory(tx_id = 42, 
                              amount = 115)
@@ -93,3 +105,28 @@ def test_invalid_add_to_pending(pending_tx_factory):
 
     assert get_tx1_error["status"] == "error"
     assert get_tx2_error["status"] == "error"
+
+#******************************************
+#   Test returning transaction information
+#******************************************
+
+def test_return_tx(pending_tx_factory, pending_storage):
+    pending_tx1 = pending_tx_factory(tx_id = 119089)  
+    set_tx("all", pending_tx1, pending_storage)
+
+    assert get_tx(119089, "inTernal") == {"status": "returned", "transaction": pending_tx1}
+    assert get_tx(119089, "proCeSSed") == {"status": "returned", "transaction": pending_tx1}
+    assert get_tx(119089, "alL") == {"status": "returned", "transaction": {"internal": pending_tx1, "processed": pending_tx1}}
+    assert get_tx(119089, "none") == {"status": "error", "details": "Unknown source"}
+
+def test_return_tx_list(pending_tx_factory, pending_storage):
+    pending_tx1 = pending_tx_factory(tx_id = 119089)  
+    pending_tx2 = pending_tx_factory(tx_id = 119067)  
+    set_tx("all", pending_tx1, pending_storage)
+    set_tx("all", pending_tx2, pending_storage)
+    pending_list = [pending_tx1, pending_tx2]
+
+    assert get_tx_list("inTernal") == {"status": "returned", "list": pending_list}
+    assert get_tx_list("proCeSSed") == {"status": "returned", "list": pending_list}
+    assert get_tx_list("alL") == {"status": "returned", "list": {"internal": pending_list, "processed": pending_list}}
+    assert get_tx_list("none") == {"status": "error", "details": "Unknown source"}
