@@ -55,9 +55,6 @@ class MatchedStorage:
         
     def set_validated_true(self, id):
         self.tx[id].validated = True
-        
-    def set_validated_false(self, id, log):
-        self.tx[id].issues.append(log)
     
     #Getter methods
     def get_issue_log(self, id):
@@ -80,6 +77,9 @@ class MatchedStorage:
     
     def get_internal_amount(self, tx_id):
         return self.tx[tx_id].internal.amount
+    
+    def get_validated(self, tx_id):
+        return self.tx[tx_id].validated
 
 pending = PendingStorage()
 matched = MatchedStorage()

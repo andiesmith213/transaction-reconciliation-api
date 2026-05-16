@@ -1,54 +1,68 @@
 
+from app.services.report_transaction import get_issue_log
+from app.storage.storage             import matched
 
-from app.services.service_transaction import delete_pending_tx
+def test_issue_log_occupied(matching_tx_factory):    
+    issue_log1 = [{"status": "timestamp OOT", "details": "Tolerance exceeded"},
+                 {"status": "amount OOT", "details": "Tolerance exceeded"}]
+    issue_log2 = [{"status": "timestamp OOT", "details": "Tolerance exceeded"}]
+    issue_log3 = [{"status": "amount OOT", "details": "Tolerance exceeded"}]
+    tx1 = matching_tx_factory(tx_id = 112,
+                              internal_amount = 70,
+                              internal_timestamp = 10,
+                              processed_amount = 70,
+                              processed_timestamp = 11,
+                              validated = True, 
+                              issues = issue_log1
+                              )
+    tx2 = matching_tx_factory(tx_id = 18,
+                              internal_amount = 70,
+                              internal_timestamp = 10,
+                              processed_amount = 70,
+                              processed_timestamp = 11,
+                              validated = True, 
+                              issues = issue_log2
+                              )
+    tx3 = matching_tx_factory(tx_id = 1523418,
+                              internal_amount = 70,
+                              internal_timestamp = 10,
+                              processed_amount = 70,
+                              processed_timestamp = 11,
+                              validated = True, 
+                              issues = issue_log3
+                              )
+    matched.set_transaction(tx1)
+    matched.set_transaction(tx2)
+    matched.set_transaction(tx3)
+    assert get_issue_log(112)       == issue_log1
+    assert get_issue_log(18)        == issue_log2
+    assert get_issue_log(1523418)   == issue_log3   
 
-def set_tx(src, pending_tx, pending_storage):
-    if src == "all":
-        pending_storage.set_internal_transaction(pending_tx)
-        pending_storage.set_processed_transaction(pending_tx)
-    elif src == "internal":
-        pending_storage.set_internal_transaction(pending_tx)
-    elif src == "processed":
-        pending_storage.set_processed_transaction(pending_tx)
+def test_issue_log_empty(matching_tx_factory):    
+    issue_log1 = []
+    tx1 = matching_tx_factory(tx_id = 112,
+                              internal_amount = 70,
+                              internal_timestamp = 10,
+                              processed_amount = 70,
+                              processed_timestamp = 11,
+                              validated = True, 
+                              issues = issue_log1
+                              )
+    matched.set_transaction(tx1)
+    assert get_issue_log(112) == {"status": "not found", "details": "no issue log found"}
 
-def test_valid_delete(pending_tx_factory, pending_storage):
-    pending_tx = pending_tx_factory(tx_id = 119089)  
-    #All
-    src = "all"
-    set_tx(src, pending_tx, pending_storage)
-    delete = delete_pending_tx(pending_tx.tx_id, src)
-    assert delete == {"status": "transaction removed successfully", "details": "transaction removed from all pending transactions"}
-    
-    #Internal
-    src = "internal"
-    set_tx(src, pending_tx, pending_storage)
-    delete = delete_pending_tx(pending_tx.tx_id, src)
-    assert delete == {"status": "transaction removed successfully", "details": "transaction removed from internal pending transactions"}
-    
-    #Processed
-    src = "processed"
-    set_tx(src, pending_tx, pending_storage)
-    delete = delete_pending_tx(pending_tx.tx_id, src)
-    assert delete == {"status": "transaction removed successfully", "details": "transaction removed from processed pending transactions"}
+def test_log_when_tx_not_validated(matching_tx_factory):    
+    issue_log1 = []
+    tx1 = matching_tx_factory(tx_id = 112,
+                              internal_amount = 70,
+                              internal_timestamp = 10,
+                              processed_amount = 70,
+                              processed_timestamp = 11,
+                              validated = False, 
+                              issues = issue_log1
+                              )
+    matched.set_transaction(tx1)
+    assert get_issue_log(112) == {"status": "error", "details": "transaction not validated"}
 
-def test_invalid_delete(pending_tx_factory, pending_storage):
-    pending_tx = pending_tx_factory(tx_id = 119089)  
-    #All
-    src = "all"
-    delete = delete_pending_tx(pending_tx.tx_id, src)
-    assert delete == {"status": "no transaction to remove"}
-    
-    #Internal
-    src = "internal"
-    set_tx(src, pending_tx, pending_storage)
-    delete = delete_pending_tx(pending_tx.tx_id, "processed")
-    assert delete == {"status": "no transaction to remove"}
-    assert pending_storage.get_internal_transaction(pending_tx.tx_id) == pending_tx
-    
-    #Processed
-    src = "processed"
-    set_tx(src, pending_tx, pending_storage)
-    delete = delete_pending_tx(pending_tx.tx_id, "internal")
-    assert delete == {"status": "no transaction to remove"}
-    assert pending_storage.get_processed_transaction(pending_tx.tx_id) == pending_tx
-
+def test_log_matched_missing():    
+    assert get_issue_log(112) == {"status": "error", "details": "transaction ID does not exist"}
