@@ -25,11 +25,11 @@ def get_tx(tx_id, src):
     source = src.lower()                                    #.lower() to avoid mismatches due to case sensitivity
     #Return appropriate list based off source
     if source == "internal":            
-        status = {"status": "returned", "transaction": pending.get_internal_transaction(tx_id)}
+        status = {"status": "returned", "transaction": pending.list_internal_transaction(tx_id)}
     elif source == "processed":         
-        status = {"status": "returned", "transaction": pending.get_processed_transaction(tx_id)}
+        status = {"status": "returned", "transaction": pending.list_processed_transaction(tx_id)}
     elif source == "all":              
-        status = {"status": "returned", "transaction": {"internal": pending.get_internal_transaction(tx_id), "processed": pending.get_processed_transaction(tx_id)}}
+        status = {"status": "returned", "transaction": {"internal": pending.list_internal_transaction(tx_id), "processed": pending.list_processed_transaction(tx_id)}}
     else:
         status = {"status": "error", "details": "Unknown source"}
     return status

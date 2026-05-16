@@ -25,6 +25,12 @@ class PendingStorage:
         result = self.internal_tx.pop(tx_id, None)
         self.internal_index = len(self.internal_tx) - 1
         return result
+    
+    def list_processed_transaction(self, tx_id):
+        return self.processed_tx[tx_id]
+    
+    def list_internal_transaction(self, tx_id):
+        return self.internal_tx[tx_id]
 
     def get_processed_list(self):
         return list(self.processed_tx.values())
