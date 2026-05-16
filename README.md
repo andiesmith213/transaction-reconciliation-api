@@ -4,7 +4,7 @@ This is a server side app that can be used to reconcile differences in financial
 the timestamps and amounts against a user provided tolerance, and will return any discrepancies within the internal versus processed transactions. 
 
 ## System Diagram
-<img width="1309" height="741" alt="image" src="https://github.com/user-attachments/assets/d212688d-2610-4b5b-b5a9-fe836e80b6be" />
+<img width="1265" height="726" alt="image" src="https://github.com/user-attachments/assets/ca47069c-732a-444c-be7b-964fc3e7ee69" />
 
 ### Process service
 <img width="1305" height="622" alt="image" src="https://github.com/user-attachments/assets/b1cb2aa3-51fe-4e2c-9091-6ad4619fab32" />
@@ -12,7 +12,7 @@ the timestamps and amounts against a user provided tolerance, and will return an
 ### Reconcile service 
 <img width="1329" height="633" alt="image" src="https://github.com/user-attachments/assets/c3ea79a4-05cf-4750-a92e-55dfe8f94138" />
 
-### Log service
+### Report service
 <img width="952" height="369" alt="image" src="https://github.com/user-attachments/assets/b6d51d78-a385-4bc1-9b2a-793f78e8ecd1" />
 
 
