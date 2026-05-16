@@ -42,5 +42,3 @@ def delete_pending(source: str, tx_id: int):
     if source not in ["processed", "internal", "all"]:
         raise HTTPException(status_code=404, detail="Unknown transaction source.")
     return delete_pending_tx(tx_id, source)
-#TODO: is there a way to add in a check that occurs before the app is shut down?
-    #If so, add check of pending transaction indexes to confirm no transactions were missed
