@@ -15,18 +15,26 @@ Additionally, videos demonstrating the app can be found throughout this README.
 ### Process service
 <img width="1305" height="622" alt="image" src="https://github.com/user-attachments/assets/b1cb2aa3-51fe-4e2c-9091-6ad4619fab32" />
 
-https://github.com/user-attachments/assets/1ef9eff8-ff31-4c0a-94d5-63aaad3b3894
+https://github.com/user-attachments/assets/9226ef19-0831-4c75-8a6b-90fa2c349e9f
 
-https://github.com/user-attachments/assets/168456c5-1ac8-44d0-923b-161d4731d94d
+https://github.com/user-attachments/assets/b75b30be-d5f9-4951-b787-edbfe5ad6e11
 
-https://github.com/user-attachments/assets/82a498a7-50be-4022-9ec9-4f3ad805dba9
+https://github.com/user-attachments/assets/d323311b-7c1f-4592-b297-d6e6ef317de9
 
 
 ### Reconcile service 
 <img width="1329" height="633" alt="image" src="https://github.com/user-attachments/assets/c3ea79a4-05cf-4750-a92e-55dfe8f94138" />
 
+https://github.com/user-attachments/assets/a4a4ed15-c6dc-4aba-986e-a83d77f007ca
+
+https://github.com/user-attachments/assets/038660bd-5dad-4959-92b8-f4ca178266b6
+
+
 ### Report service
 <img width="927" height="373" alt="image" src="https://github.com/user-attachments/assets/10317607-076d-43b9-ba7b-d5d8ee7fb139" />
+
+https://github.com/user-attachments/assets/83f93c12-94e2-4da3-88b0-0e27964c12c8
+
 
 ## Available requests
 - Add new pending transaction 
@@ -58,5 +66,4 @@ Run app from root
 From root directory:
 > pytest --cov --cov-report=html
 
-## Coverage
-<a href="[URL](https://github.com/andiesmith213/transaction-reconciliation-api/blob/master/reports/coverage/index.html)">Coverage Report</a>
+[Coverage Report](https://github.com/andiesmith213/transaction-reconciliation-api/blob/master/reports/coverage/index.html)
