@@ -44,22 +44,13 @@ https://github.com/user-attachments/assets/83f93c12-94e2-4da3-88b0-0e27964c12c8
 - Retrieve a log of issues found during reconciling based off ID
 
 # Running the app
-This app is designed to run from the root directory that contains the app and tests folder.
-If you clone this project into a folder named something other than transaction_reconciliation_api, change where you see [transaction_reconciliation_api] with your project name.
-## Using Docker Container
-Build docker image
-> docker build -t [transaction_reconciliation_api] .
+This app is designed to run from the root directory that contains the app and tests folders.
 
-Run with docker
-> docker run -p 8000:8000 [transaction_reconciliation_api]
-## Manually
-Install dependencies
+## Install dependencies
 > pip install -r requirements.txt
 
-Run app from root
+## Run app from root
 > uvicorn app.main:app
-
-
 
 
 # Testing
@@ -67,3 +58,18 @@ From root directory:
 > pytest --cov --cov-report=html
 
 [Coverage Report](https://github.com/andiesmith213/transaction-reconciliation-api/blob/master/reports/coverage/index.html)
+
+## Methodology
+Unit and integration level tests were created to exhaustively verify that the app worked as it should. 
+
+Unit testing verified the following:
+- Pending and matching storage classes
+- Valid and invalid transaction matching
+- In and out of tolerance transaction validation
+- Post-reconciling issue reporting
+
+Integration testing verified the following:
+- Entire flow of processing service:
+    - adding, deleting and returning pending ledger
+- Entire flow of reconciling service:
+    - valid/invalid/in tolerance/out of tolerance reconciling
