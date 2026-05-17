@@ -8,7 +8,7 @@ from fastapi                            import APIRouter, HTTPException
 from app.models.schemas                 import PendingTransaction
 from app.services.reconcile_transaction import reconcile_tx
 from app.services.process_transaction   import add_tx, get_tx_list, delete_pending_tx
-from app.services.transaction_reports   import get_issue_log
+from app.services.report_transaction    import get_issue_log
 
 router = APIRouter()
 
@@ -20,7 +20,7 @@ def add(tx: PendingTransaction, source: str):
     return add_tx(tx, source)
 
 #Endpoint to handle returning pending list
-@router.get("/get_list/{source}")
+@router.get("/get_pending_list/{source}")
 def get_list(source: str):
     if source not in ["processed", "internal", "all"]:
         raise HTTPException(status_code=404, detail="Unknown transaction source. No list to return.")
